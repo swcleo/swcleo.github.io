@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>如何在VSCode上進行TypeScript Debugging</title>
+    <url>/2022/07/05/%20%E5%A6%82%E4%BD%95%E5%9C%A8VSCode%E4%B8%8A%E9%80%B2%E8%A1%8CTypeScript%20Debugging/</url>
+    <content><![CDATA[<p>日常工作上經常性使用<code>VSCode</code>這款原始碼編輯器做為開發工具，但大部份都只用來寫寫代碼、透過擴充套件<code>highlight</code>代碼，以及進行相關編輯、搜尋、取代等文書工作，甚少直接使用編輯器來運行程式，這次來記錄一下如何使用內建的Debug功能進行Typescript的Debugging。</p>
+<p>參考內容：</p>
+<p><a href="https://code.visualstudio.com/docs/editor/debugging">https://code.visualstudio.com/docs/editor/debugging</a></p>
+<h2 id="測試代碼"><a href="#測試代碼" class="headerlink" title="測試代碼"></a>測試代碼</h2><p>日常在進行除錯或是閱讀代碼時，經常需要在不同的程式碼檔案中進行切換，腦中還需要記憶各種不同的變數以及執行流程，稍微不注意就會需要重頭來過。</p>
+<p>下面代碼我是近期在研究的<code>colyseus</code>開源專案，正在理解該專案的技術是如何做到C&#x2F;S架構之間資料狀態同步的這件事，接下來我們試著使用VSCode Debug功能來追蹤程式碼運行的方式。</p>
+<p>首先準備一段測試代碼，先克隆<code>colyseus/schema</code>下來，在根目錄隨意取個<code>test.ts</code>檔名做為<code>ts-node</code>執行時進入點：</p>
+<p><img src="https://i.imgur.com/4hGwePt.png?1" alt="Imgur"></p>
+<h2 id="Debug功能參數設定"><a href="#Debug功能參數設定" class="headerlink" title="Debug功能參數設定"></a>Debug功能參數設定</h2><p>使用<code>Shift + Command + D</code>切換至<code>Run and Debug</code>選單功能，若當前專案沒有<code>launch.json</code>設定，可以直接點選創建內容。</p>
+<p><img src="https://i.imgur.com/8bwkXID.png" alt="Image"></p>
+<p>因為是運行Typescipt專案，選取<code>Node.js</code></p>
+<p><img src="https://i.imgur.com/qhiS8b8.png" alt="Image"></p>
+<p>會出現json格式的預設內容</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;0.2.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;configurations&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;pwa-node&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;request&quot;</span><span class="punctuation">:</span> <span class="string">&quot;launch&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Launch Program&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;skipFiles&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                <span class="string">&quot;&lt;node_internals&gt;/**&quot;</span></span><br><span class="line">            <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;program&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;workspaceFolder&#125;/test.ts&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;outFiles&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">                <span class="string">&quot;$&#123;workspaceFolder&#125;/**/*.js&quot;</span></span><br><span class="line">            <span class="punctuation">]</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>我們可以根據自身需要調整設定</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;version&quot;</span><span class="punctuation">:</span> <span class="string">&quot;0.2.0&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;configurations&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">        <span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;name&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Test Example&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span> <span class="string">&quot;node&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;request&quot;</span><span class="punctuation">:</span> <span class="string">&quot;launch&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;program&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;workspaceRoot&#125;/node_modules/ts-node/dist/bin.js&quot;</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;args&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">              <span class="string">&quot;test.ts&quot;</span></span><br><span class="line">            <span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">            <span class="attr">&quot;cwd&quot;</span><span class="punctuation">:</span> <span class="string">&quot;$&#123;workspaceRoot&#125;&quot;</span><span class="punctuation">,</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="執行方式"><a href="#執行方式" class="headerlink" title="執行方式"></a>執行方式</h2><p>接著在程式碼區塊標注上追蹤用的中斷點，點選<code>F5</code>或執行按鈕</p>
+<p><img src="https://i.imgur.com/2FHd6Yu.png" alt="Image"></p>
+<p>VSCode會進入Debugging模式，並將執行程式環境中的變數、上下文內容等資料呈現在左側資料列表中。</p>
+<p><img src="https://i.imgur.com/d05qP40.png" alt="Image"></p>
+<p>後續的操作可以通過工具列或是快速鍵進行操作</p>
+<p><img src="https://i.imgur.com/U6fEuQR.png" alt="Image"></p>
+<ul>
+<li>Continue &#x2F; Pause F5</li>
+<li>Step Over F10</li>
+<li>Step Into F11</li>
+<li>Step Out ⇧F11</li>
+<li>Restart ⇧⌘F5</li>
+<li>Stop ⇧F5</li>
+</ul>
+]]></content>
+      <tags>
+        <tag>VSCode</tag>
+      </tags>
+  </entry>
+</search>
