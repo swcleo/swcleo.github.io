@@ -4,8 +4,8 @@
     <title>如何在VSCode上進行TypeScript Debugging</title>
     <url>/2022/07/05/%20%E5%A6%82%E4%BD%95%E5%9C%A8VSCode%E4%B8%8A%E9%80%B2%E8%A1%8CTypeScript%20Debugging/</url>
     <content><![CDATA[<p>日常工作上經常性使用<code>VSCode</code>這款原始碼編輯器做為開發工具，但大部份都只用來寫寫代碼、透過擴充套件<code>highlight</code>代碼，以及進行相關編輯、搜尋、取代等文書工作，甚少直接使用編輯器來運行程式，這次來記錄一下如何使用內建的Debug功能進行Typescript的Debugging。</p>
-<p>參考內容：</p>
-<p><a href="https://code.visualstudio.com/docs/editor/debugging">https://code.visualstudio.com/docs/editor/debugging</a></p>
+<p>參考內容：<br><a href="https://code.visualstudio.com/docs/editor/debugging">https://code.visualstudio.com/docs/editor/debugging</a></p>
+<span id="more"></span>
 <h2 id="測試代碼"><a href="#測試代碼" class="headerlink" title="測試代碼"></a>測試代碼</h2><p>日常在進行除錯或是閱讀代碼時，經常需要在不同的程式碼檔案中進行切換，腦中還需要記憶各種不同的變數以及執行流程，稍微不注意就會需要重頭來過。</p>
 <p>下面代碼我是近期在研究的<code>colyseus</code>開源專案，正在理解該專案的技術是如何做到C&#x2F;S架構之間資料狀態同步的這件事，接下來我們試著使用VSCode Debug功能來追蹤程式碼運行的方式。</p>
 <p>首先準備一段測試代碼，先克隆<code>colyseus/schema</code>下來，在根目錄隨意取個<code>test.ts</code>檔名做為<code>ts-node</code>執行時進入點：</p>

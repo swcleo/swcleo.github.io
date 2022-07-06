@@ -20,12 +20,12 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"swcleo.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.12.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"${hits} 找到 ${time} 個結果","hits":"找到 ${hits} 個結果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="日常工作上經常性使用VSCode這款原始碼編輯器做為開發工具，但大部份都只用來寫寫代碼、透過擴充套件highlight代碼，以及進行相關編輯、搜尋、取代等文書工作，甚少直接使用編輯器來運行程式，這次來記錄一下如何使用內建的Debug功能進行Typescript的Debugging。 參考內容： https:&#x2F;&#x2F;code.visualstudio.com&#x2F;docs&#x2F;editor&#x2F;debugging">
+    <meta name="description" content="日常工作上經常性使用VSCode這款原始碼編輯器做為開發工具，但大部份都只用來寫寫代碼、透過擴充套件highlight代碼，以及進行相關編輯、搜尋、取代等文書工作，甚少直接使用編輯器來運行程式，這次來記錄一下如何使用內建的Debug功能進行Typescript的Debugging。 參考內容：https:&#x2F;&#x2F;code.visualstudio.com&#x2F;docs&#x2F;editor&#x2F;debugging">
 <meta property="og:type" content="article">
 <meta property="og:title" content="如何在VSCode上進行TypeScript Debugging">
 <meta property="og:url" content="https://swcleo.github.io/2022/07/05/%20%E5%A6%82%E4%BD%95%E5%9C%A8VSCode%E4%B8%8A%E9%80%B2%E8%A1%8CTypeScript%20Debugging/index.html">
 <meta property="og:site_name" content="技術日誌 ✏ LEO">
-<meta property="og:description" content="日常工作上經常性使用VSCode這款原始碼編輯器做為開發工具，但大部份都只用來寫寫代碼、透過擴充套件highlight代碼，以及進行相關編輯、搜尋、取代等文書工作，甚少直接使用編輯器來運行程式，這次來記錄一下如何使用內建的Debug功能進行Typescript的Debugging。 參考內容： https:&#x2F;&#x2F;code.visualstudio.com&#x2F;docs&#x2F;editor&#x2F;debugging">
+<meta property="og:description" content="日常工作上經常性使用VSCode這款原始碼編輯器做為開發工具，但大部份都只用來寫寫代碼、透過擴充套件highlight代碼，以及進行相關編輯、搜尋、取代等文書工作，甚少直接使用編輯器來運行程式，這次來記錄一下如何使用內建的Debug功能進行Typescript的Debugging。 參考內容：https:&#x2F;&#x2F;code.visualstudio.com&#x2F;docs&#x2F;editor&#x2F;debugging">
 <meta property="og:locale" content="zh_TW">
 <meta property="og:image" content="https://i.imgur.com/4hGwePt.png?1">
 <meta property="og:image" content="https://i.imgur.com/8bwkXID.png">
@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://i.imgur.com/d05qP40.png">
 <meta property="og:image" content="https://i.imgur.com/U6fEuQR.png">
 <meta property="article:published_time" content="2022-07-05T08:51:06.000Z">
-<meta property="article:modified_time" content="2022-07-06T07:14:14.421Z">
+<meta property="article:modified_time" content="2022-07-06T08:09:01.331Z">
 <meta property="article:author" content="Leo Chen">
 <meta property="article:tag" content="VSCode">
 <meta name="twitter:card" content="summary">
@@ -248,7 +248,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新於</span>
-      <time title="修改時間：2022-07-06 15:14:14" itemprop="dateModified" datetime="2022-07-06T15:14:14+08:00">2022-07-06</time>
+      <time title="修改時間：2022-07-06 16:09:01" itemprop="dateModified" datetime="2022-07-06T16:09:01+08:00">2022-07-06</time>
     </span>
 
   
@@ -276,8 +276,8 @@
     
     <div class="post-body" itemprop="articleBody">
         <p>日常工作上經常性使用<code>VSCode</code>這款原始碼編輯器做為開發工具，但大部份都只用來寫寫代碼、透過擴充套件<code>highlight</code>代碼，以及進行相關編輯、搜尋、取代等文書工作，甚少直接使用編輯器來運行程式，這次來記錄一下如何使用內建的Debug功能進行Typescript的Debugging。</p>
-<p>參考內容：</p>
-<p><a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/editor/debugging">https://code.visualstudio.com/docs/editor/debugging</a></p>
+<p>參考內容：<br><a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/editor/debugging">https://code.visualstudio.com/docs/editor/debugging</a></p>
+<span id="more"></span>
 <h2 id="測試代碼"><a href="#測試代碼" class="headerlink" title="測試代碼"></a>測試代碼</h2><p>日常在進行除錯或是閱讀代碼時，經常需要在不同的程式碼檔案中進行切換，腦中還需要記憶各種不同的變數以及執行流程，稍微不注意就會需要重頭來過。</p>
 <p>下面代碼我是近期在研究的<code>colyseus</code>開源專案，正在理解該專案的技術是如何做到C&#x2F;S架構之間資料狀態同步的這件事，接下來我們試著使用VSCode Debug功能來追蹤程式碼運行的方式。</p>
 <p>首先準備一段測試代碼，先克隆<code>colyseus/schema</code>下來，在根目錄隨意取個<code>test.ts</code>檔名做為<code>ts-node</code>執行時進入點：</p>
@@ -347,7 +347,7 @@
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">Leo Chen</span>
+  <span class="author" itemprop="copyrightHolder">若要轉載文章，麻煩請保留原作者名稱與原始連結。</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/pisces/" rel="noopener" target="_blank">NexT.Pisces</a> 強力驅動
   </div>
