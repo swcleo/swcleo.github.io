@@ -9,7 +9,7 @@
   <meta name="description" content="日常工作上經常性使用VSCode這款原始碼編輯器做為開發工具，但大部份都只用來寫寫代碼、透過擴充套件highlight代碼，以及進行相關編輯、搜尋、取代等文書工作，甚少直接使用編輯器來運行程式，這次來記錄一下如何使用內建的Debug功能進行Typescript的Debugging。 參考內容： https:&#x2F;&#x2F;code.visualstudio.com&#x2F;docs&#x2F;editor&#x2F;debugging">
 <meta property="og:type" content="article">
 <meta property="og:title" content="如何在VSCode上進行TypeScript Debugging">
-<meta property="og:url" content="https://github.com/swcleo/swcleo.github.io.git/2022/07/05/%20%E5%A6%82%E4%BD%95%E5%9C%A8VSCode%E4%B8%8A%E9%80%B2%E8%A1%8CTypeScript%20Debugging/index.html">
+<meta property="og:url" content="https://swcleo.github.io/2022/07/05/%20%E5%A6%82%E4%BD%95%E5%9C%A8VSCode%E4%B8%8A%E9%80%B2%E8%A1%8CTypeScript%20Debugging/index.html">
 <meta property="og:site_name" content="技術日誌 ✏ LEO">
 <meta property="og:description" content="日常工作上經常性使用VSCode這款原始碼編輯器做為開發工具，但大部份都只用來寫寫代碼、透過擴充套件highlight代碼，以及進行相關編輯、搜尋、取代等文書工作，甚少直接使用編輯器來運行程式，這次來記錄一下如何使用內建的Debug功能進行Typescript的Debugging。 參考內容： https:&#x2F;&#x2F;code.visualstudio.com&#x2F;docs&#x2F;editor&#x2F;debugging">
 <meta property="og:locale" content="zh_TW">
@@ -26,10 +26,10 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://i.imgur.com/4hGwePt.png?1">
   
-    <link rel="alternate" href="/swcleo/swcleo.github.io.git/atom.xml" title="技術日誌 ✏ LEO" type="application/atom+xml">
+    <link rel="alternate" href="/atom.xml" title="技術日誌 ✏ LEO" type="application/atom+xml">
   
   
-    <link rel="shortcut icon" href="/swcleo/swcleo.github.io.git/favicon.png">
+    <link rel="shortcut icon" href="/favicon.png">
   
   
     
@@ -37,11 +37,11 @@
 
   
   
-<link rel="stylesheet" href="/swcleo/swcleo.github.io.git/css/style.css">
+<link rel="stylesheet" href="/css/style.css">
 
   
     
-<link rel="stylesheet" href="/swcleo/swcleo.github.io.git/fancybox/jquery.fancybox.min.css">
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
 
   
 <meta name="generator" content="Hexo 6.2.0"></head>
@@ -54,7 +54,7 @@
   <div id="header-outer" class="outer">
     <div id="header-title" class="inner">
       <h1 id="logo-wrap">
-        <a href="/swcleo/swcleo.github.io.git/" id="logo">技術日誌 ✏ LEO</a>
+        <a href="/" id="logo">技術日誌 ✏ LEO</a>
       </h1>
       
     </div>
@@ -62,19 +62,19 @@
       <nav id="main-nav">
         <a id="main-nav-toggle" class="nav-icon"></a>
         
-          <a class="main-nav-link" href="/swcleo/swcleo.github.io.git/">Home</a>
+          <a class="main-nav-link" href="/">Home</a>
         
-          <a class="main-nav-link" href="/swcleo/swcleo.github.io.git/archives">Archives</a>
+          <a class="main-nav-link" href="/archives">Archives</a>
         
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/swcleo/swcleo.github.io.git/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
         <a id="nav-search-btn" class="nav-icon" title="搜尋"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜尋"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://github.com/swcleo/swcleo.github.io.git"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="搜尋"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://swcleo.github.io"></form>
       </div>
     </div>
   </div>
@@ -83,7 +83,7 @@
       <div class="outer">
         <section id="main"><article id="post- 如何在VSCode上進行TypeScript Debugging" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/swcleo/swcleo.github.io.git/2022/07/05/%20%E5%A6%82%E4%BD%95%E5%9C%A8VSCode%E4%B8%8A%E9%80%B2%E8%A1%8CTypeScript%20Debugging/" class="article-date">
+    <a href="/2022/07/05/%20%E5%A6%82%E4%BD%95%E5%9C%A8VSCode%E4%B8%8A%E9%80%B2%E8%A1%8CTypeScript%20Debugging/" class="article-date">
   <time class="dt-published" datetime="2022-07-05T08:51:06.000Z" itemprop="datePublished">2022-07-05</time>
 </a>
     
@@ -138,11 +138,11 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://github.com/swcleo/swcleo.github.io.git/2022/07/05/%20%E5%A6%82%E4%BD%95%E5%9C%A8VSCode%E4%B8%8A%E9%80%B2%E8%A1%8CTypeScript%20Debugging/" data-id="cl595bd7g0000qowifx4cf994" data-title="如何在VSCode上進行TypeScript Debugging" class="article-share-link">Share</a>
+      <a data-url="https://swcleo.github.io/2022/07/05/%20%E5%A6%82%E4%BD%95%E5%9C%A8VSCode%E4%B8%8A%E9%80%B2%E8%A1%8CTypeScript%20Debugging/" data-id="cl595bd7g0000qowifx4cf994" data-title="如何在VSCode上進行TypeScript Debugging" class="article-share-link">Share</a>
       
       
       
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/swcleo/swcleo.github.io.git/tags/VSCode/" rel="tag">VSCode</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/VSCode/" rel="tag">VSCode</a></li></ul>
 
     </footer>
   </div>
@@ -151,7 +151,7 @@
 <nav id="article-nav">
   
   
-    <a href="/swcleo/swcleo.github.io.git/2022/07/05/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2022/07/05/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
       <div class="article-nav-title">Hello World</div>
     </a>
@@ -173,7 +173,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">標籤</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/swcleo/swcleo.github.io.git/tags/VSCode/" rel="tag">VSCode</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/VSCode/" rel="tag">VSCode</a></li></ul>
     </div>
   </div>
 
@@ -183,7 +183,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">標籤雲</h3>
     <div class="widget tagcloud">
-      <a href="/swcleo/swcleo.github.io.git/tags/VSCode/" style="font-size: 10px;">VSCode</a>
+      <a href="/tags/VSCode/" style="font-size: 10px;">VSCode</a>
     </div>
   </div>
 
@@ -192,7 +192,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">彙整</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/swcleo/swcleo.github.io.git/archives/2022/07/">七月 2022</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/07/">七月 2022</a></li></ul>
     </div>
   </div>
 
@@ -205,11 +205,11 @@
       <ul>
         
           <li>
-            <a href="/swcleo/swcleo.github.io.git/2022/07/05/%20%E5%A6%82%E4%BD%95%E5%9C%A8VSCode%E4%B8%8A%E9%80%B2%E8%A1%8CTypeScript%20Debugging/">如何在VSCode上進行TypeScript Debugging</a>
+            <a href="/2022/07/05/%20%E5%A6%82%E4%BD%95%E5%9C%A8VSCode%E4%B8%8A%E9%80%B2%E8%A1%8CTypeScript%20Debugging/">如何在VSCode上進行TypeScript Debugging</a>
           </li>
         
           <li>
-            <a href="/swcleo/swcleo.github.io.git/2022/07/05/hello-world/">Hello World</a>
+            <a href="/2022/07/05/hello-world/">Hello World</a>
           </li>
         
       </ul>
@@ -234,25 +234,25 @@
     </div>
     <nav id="mobile-nav">
   
-    <a href="/swcleo/swcleo.github.io.git/" class="mobile-nav-link">Home</a>
+    <a href="/" class="mobile-nav-link">Home</a>
   
-    <a href="/swcleo/swcleo.github.io.git/archives" class="mobile-nav-link">Archives</a>
+    <a href="/archives" class="mobile-nav-link">Archives</a>
   
 </nav>
     
 
 
-<script src="/swcleo/swcleo.github.io.git/js/jquery-3.4.1.min.js"></script>
+<script src="/js/jquery-3.4.1.min.js"></script>
 
 
 
   
-<script src="/swcleo/swcleo.github.io.git/fancybox/jquery.fancybox.min.js"></script>
+<script src="/fancybox/jquery.fancybox.min.js"></script>
 
 
 
 
-<script src="/swcleo/swcleo.github.io.git/js/script.js"></script>
+<script src="/js/script.js"></script>
 
 
 
