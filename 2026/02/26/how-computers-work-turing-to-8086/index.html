@@ -19,22 +19,30 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"swcleo.github.io","root":"/","images":"/images","scheme":"Pisces","darkmode":false,"version":"8.27.0","exturl":false,"sidebar":{"position":"left","width_expanded":320,"width_dual_column":240,"display":"post","padding":18,"offset":12},"hljswrap":true,"codeblock":{"theme":{"light":"default","dark":"stackoverflow-dark"},"prism":{"light":"prism","dark":"prism-dark"},"copy_button":{"enable":false,"style":null},"fold":{"enable":false,"height":500},"language":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"duration":200,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"i18n":{"placeholder":"搜尋...","empty":"我們無法找到任何有關 ${query} 的搜索結果","hits_time":"找到 ${hits} 個搜索結果（用時 ${time} 毫秒）","hits":"找到 ${hits} 個搜索結果"},"path":"/search.json","localsearch":{"enable":true,"top_n_per_article":1,"unescape":false,"preload":false,"trigger":"auto"}}</script><script src="/js/config.js" defer></script>
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="技術日誌 ✏ LEO">
-<meta property="og:url" content="https://swcleo.github.io/index.html">
+    <meta name="description" content="本文由 Claude Code 生成。  一、圖靈是什麼1936 年，艾倫·圖靈（Alan Turing）提出了一個思想實驗：  如果一台機器能做到這三件事，它就能計算世界上任何可以被計算的問題。  這三件事是：  讀寫資料 — 能把東西存起來，也能讀出來 條件判斷 — 能根據結果決定下一步做什麼 重複執行 — 能一直跑，直到答案出現  這個概念叫做圖靈機，它不是一台真實的機器，而是一個理論模型">
+<meta property="og:type" content="article">
+<meta property="og:title" content="電腦是怎麼運作的？從圖靈到 8086">
+<meta property="og:url" content="https://swcleo.github.io/2026/02/26/how-computers-work-turing-to-8086/index.html">
 <meta property="og:site_name" content="技術日誌 ✏ LEO">
+<meta property="og:description" content="本文由 Claude Code 生成。  一、圖靈是什麼1936 年，艾倫·圖靈（Alan Turing）提出了一個思想實驗：  如果一台機器能做到這三件事，它就能計算世界上任何可以被計算的問題。  這三件事是：  讀寫資料 — 能把東西存起來，也能讀出來 條件判斷 — 能根據結果決定下一步做什麼 重複執行 — 能一直跑，直到答案出現  這個概念叫做圖靈機，它不是一台真實的機器，而是一個理論模型">
 <meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2026-02-25T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-02-26T02:50:01.055Z">
 <meta property="article:author" content="Leo Chen">
+<meta property="article:tag" content="CPU">
+<meta property="article:tag" content="圖靈機">
+<meta property="article:tag" content="底層原理">
+<meta property="article:tag" content="電腦科學">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://swcleo.github.io/">
+<link rel="canonical" href="https://swcleo.github.io/2026/02/26/how-computers-work-turing-to-8086/">
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"zh-TW","comments":"","permalink":"","path":"index.html","title":""}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-TW","comments":true,"permalink":"https://swcleo.github.io/2026/02/26/how-computers-work-turing-to-8086/","path":"2026/02/26/how-computers-work-turing-to-8086/","title":"電腦是怎麼運作的？從圖靈到 8086"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>技術日誌 ✏ LEO</title>
+<title>電腦是怎麼運作的？從圖靈到 8086 | 技術日誌 ✏ LEO</title>
   
 
 
@@ -83,7 +91,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <h1 class="site-title">技術日誌 ✏ LEO</h1>
+      <p class="site-title">技術日誌 ✏ LEO</p>
       <i class="logo-line"></i>
     </a>
   </div>
@@ -136,7 +144,7 @@
   
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目錄
@@ -149,6 +157,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81%E5%9C%96%E9%9D%88%E6%98%AF%E4%BB%80%E9%BA%BC"><span class="nav-number">1.</span> <span class="nav-text">一、圖靈是什麼</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E5%AF%AB%E7%A8%8B%E5%BC%8F-%E7%B4%99%E6%89%93%E5%AD%94"><span class="nav-number">2.</span> <span class="nav-text">二、寫程式 &#x3D;&#x3D;&#x3D; 紙打孔</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%93%E5%AD%94%E5%8D%A1%E7%89%87%E7%9A%84%E5%8E%9F%E7%90%86"><span class="nav-number">2.1.</span> <span class="nav-text">打孔卡片的原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%B7%E8%A1%8C%E6%B5%81%E7%A8%8B"><span class="nav-number">2.2.</span> <span class="nav-text">執行流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%93%E5%AD%94%E5%8D%A1%E7%89%87-%E7%8F%BE%E4%BB%A3%E5%AF%AB%E7%A8%8B%E5%BC%8F"><span class="nav-number">2.3.</span> <span class="nav-text">打孔卡片 &#x3D; 現代寫程式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%93%E5%AD%94%E6%99%82%E4%BB%A3%E7%9A%84%E6%97%A5%E5%B8%B8%E5%9B%B0%E5%A2%83"><span class="nav-number">2.4.</span> <span class="nav-text">打孔時代的日常困境</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81%E8%A8%98%E6%86%B6%E9%AB%94%EF%BC%9A%E5%BE%9E%E7%9C%9F%E7%A9%BA%E7%AE%A1%E5%88%B0-IC"><span class="nav-number">3.</span> <span class="nav-text">三、記憶體：從真空管到 IC</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9C%9F%E7%A9%BA%E7%AE%A1%E6%99%82%E4%BB%A3%EF%BC%881940-%E5%B9%B4%E4%BB%A3%EF%BC%89"><span class="nav-number">3.1.</span> <span class="nav-text">真空管時代（1940 年代）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9B%BB%E6%99%B6%E9%AB%94%E6%99%82%E4%BB%A3%EF%BC%881950-%E5%B9%B4%E4%BB%A3%EF%BC%89"><span class="nav-number">3.2.</span> <span class="nav-text">電晶體時代（1950 年代）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IC-%E7%A9%8D%E9%AB%94%E9%9B%BB%E8%B7%AF%EF%BC%881960-%E5%B9%B4%E4%BB%A3%E8%87%B3%E4%BB%8A%EF%BC%89"><span class="nav-number">3.3.</span> <span class="nav-text">IC 積體電路（1960 年代至今）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A8%98%E6%86%B6%E9%AB%94%E9%99%90%E5%88%B6%E6%8E%A8%E5%8B%95%E7%9A%84%E7%99%BC%E6%98%8E"><span class="nav-number">3.4.</span> <span class="nav-text">記憶體限制推動的發明</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81CPU-%E5%8E%9F%E7%90%86%EF%BC%9A%E4%BB%A5-8086-%E7%82%BA%E4%BE%8B"><span class="nav-number">4.</span> <span class="nav-text">四、CPU 原理：以 8086 為例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU-%E7%9A%84%E4%B8%89%E5%80%8B%E5%8B%95%E4%BD%9C%EF%BC%9AFetch-%E2%86%92-Decode-%E2%86%92-Execute"><span class="nav-number">4.1.</span> <span class="nav-text">CPU 的三個動作：Fetch → Decode → Execute</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8086-%E7%9A%84%E6%9A%AB%E5%AD%98%E5%99%A8"><span class="nav-number">4.2.</span> <span class="nav-text">8086 的暫存器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8C%87%E4%BB%A4%E9%9B%86%EF%BC%9ACPU-%E7%9A%84%E5%AD%97%E5%85%B8"><span class="nav-number">4.3.</span> <span class="nav-text">指令集：CPU 的字典</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E5%80%8B%E5%AE%8C%E6%95%B4%E7%9A%84%E4%BE%8B%E5%AD%90%EF%BC%9A%E8%A8%88%E7%AE%97-3-5"><span class="nav-number">4.4.</span> <span class="nav-text">一個完整的例子：計算 3 + 5</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B4%E6%A2%9D%E9%8F%88"><span class="nav-number">4.5.</span> <span class="nav-text">整條鏈</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -190,16 +199,17 @@
 
     </div>
 
-    <div class="main-inner index posts-expand">
+    <div class="main-inner post posts-expand">
 
-    
+
+  
 
 
 <div class="post-block">
   
   
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-TW">
     <link itemprop="mainEntityOfPage" href="https://swcleo.github.io/2026/02/26/how-computers-work-turing-to-8086/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -213,13 +223,13 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | 技術日誌 ✏ LEO">
+      <meta itemprop="name" content="電腦是怎麼運作的？從圖靈到 8086 | 技術日誌 ✏ LEO">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2026/02/26/how-computers-work-turing-to-8086/" class="post-title-link" itemprop="url">電腦是怎麼運作的？從圖靈到 8086</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          電腦是怎麼運作的？從圖靈到 8086
+        </h1>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -256,8 +266,7 @@
     
     
     
-    <div class="post-body" itemprop="articleBody">
-          <blockquote>
+    <div class="post-body" itemprop="articleBody"><blockquote>
 <p>本文由 <a target="_blank" rel="noopener" href="https://claude.ai/code">Claude Code</a> 生成。</p>
 </blockquote>
 <h2 id="一、圖靈是什麼"><a href="#一、圖靈是什麼" class="headerlink" title="一、圖靈是什麼"></a>一、圖靈是什麼</h2><p>1936 年，艾倫·圖靈（Alan Turing）提出了一個思想實驗：</p>
@@ -438,7 +447,6 @@
 <hr>
 <p><em>這就是電腦的全部。從圖靈 1936 年的理論，到打孔卡片，到真空管，到 IC，到今天幾百億顆電晶體的晶片——做的都是同一件事，只是越來越小、越來越快。</em></p>
 
-      
     </div>
 
     
@@ -446,477 +454,24 @@
     
 
     <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
+          <div class="post-tags">
+              <a href="/tags/%E9%9B%BB%E8%85%A6%E7%A7%91%E5%AD%B8/" rel="tag"># 電腦科學</a>
+              <a href="/tags/CPU/" rel="tag"># CPU</a>
+              <a href="/tags/%E5%BA%95%E5%B1%A4%E5%8E%9F%E7%90%86/" rel="tag"># 底層原理</a>
+              <a href="/tags/%E5%9C%96%E9%9D%88%E6%A9%9F/" rel="tag"># 圖靈機</a>
+          </div>
 
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://swcleo.github.io/2026/02/23/duti-macOS-%E9%A0%90%E8%A8%AD%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Leo Chen">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="技術日誌 ✏ LEO">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | 技術日誌 ✏ LEO">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2026/02/23/duti-macOS-%E9%A0%90%E8%A8%AD%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/" class="post-title-link" itemprop="url">duti - macOS 預設應用程式管理工具</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">發表於</span>
-      
-
-      <time title="創建時間：2026-02-23 12:28:51 / 修改時間：12:29:22" itemprop="dateCreated datePublished" datetime="2026-02-23T12:28:51+08:00">2026-02-23</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2026/02/23/duti-macOS-%E9%A0%90%E8%A8%AD%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2026/02/23/duti-macOS-預設應用程式管理工具/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="什麼是-duti？"><a href="#什麼是-duti？" class="headerlink" title="什麼是 duti？"></a>什麼是 duti？</h2><p>duti 是一個 macOS 命令行工具，用於設定特定文件類型或 URL scheme 的預設處理應用程式。相較於在系統偏好設定中逐一修改，duti 讓你可以透過指令批次管理預設應用程式。</p>
-<h2 id="安裝"><a href="#安裝" class="headerlink" title="安裝"></a>安裝</h2><p>使用 Homebrew 安裝：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install duti</span><br></pre></td></tr></table></figure>
-
-<h2 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h2><h3 id="查詢目前的預設應用程式"><a href="#查詢目前的預設應用程式" class="headerlink" title="查詢目前的預設應用程式"></a>查詢目前的預設應用程式</h3><p>查詢特定檔案類型的預設應用程式：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">duti -x txt</span><br></pre></td></tr></table></figure>
-
-<p>輸出範例：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Visual Studio Code</span><br><span class="line">com.microsoft.VSCode</span><br><span class="line">/Applications/Visual Studio Code.app</span><br></pre></td></tr></table></figure>
-
-<h3 id="設定預設應用程式"><a href="#設定預設應用程式" class="headerlink" title="設定預設應用程式"></a>設定預設應用程式</h3><p>設定預設應用程式的基本語法：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">duti -s &lt;bundle_id&gt; &lt;uti_or_extension&gt; &lt;role&gt;</span><br></pre></td></tr></table></figure>
-
-<p>參數說明：</p>
-<ul>
-<li><code>bundle_id</code>：應用程式的 Bundle Identifier（例如 <code>com.microsoft.VSCode</code>）</li>
-<li><code>uti_or_extension</code>：UTI（Uniform Type Identifier）或副檔名</li>
-<li><code>role</code>：角色類型<ul>
-<li><code>all</code>：所有角色</li>
-<li><code>viewer</code>：檢視器</li>
-<li><code>editor</code>：編輯器</li>
-<li><code>shell</code>：Shell</li>
-</ul>
-</li>
-</ul>
-<h3 id="實用範例"><a href="#實用範例" class="headerlink" title="實用範例"></a>實用範例</h3><p>將所有 <code>.txt</code> 檔案預設用 VS Code 開啟：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">duti -s com.microsoft.VSCode .txt all</span><br></pre></td></tr></table></figure>
-
-<p>將所有 <code>.md</code> 檔案預設用 VS Code 開啟：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">duti -s com.microsoft.VSCode .md all</span><br></pre></td></tr></table></figure>
-
-<p>設定 <code>.json</code> 檔案：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">duti -s com.microsoft.VSCode .json all</span><br></pre></td></tr></table></figure>
-
-<h2 id="使用設定檔批次設定"><a href="#使用設定檔批次設定" class="headerlink" title="使用設定檔批次設定"></a>使用設定檔批次設定</h2><p>建立一個設定檔 <code>~/.duti</code>：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"># 文字檔案</span><br><span class="line">com.microsoft.VSCode .txt all</span><br><span class="line">com.microsoft.VSCode .md all</span><br><span class="line">com.microsoft.VSCode .json all</span><br><span class="line">com.microsoft.VSCode .yaml all</span><br><span class="line">com.microsoft.VSCode .yml all</span><br><span class="line">com.microsoft.VSCode .sh all</span><br><span class="line">com.microsoft.VSCode .zsh all</span><br><span class="line"></span><br><span class="line"># 程式碼檔案</span><br><span class="line">com.microsoft.VSCode .js all</span><br><span class="line">com.microsoft.VSCode .ts all</span><br><span class="line">com.microsoft.VSCode .py all</span><br><span class="line">com.microsoft.VSCode .go all</span><br><span class="line">com.microsoft.VSCode .rs all</span><br><span class="line"></span><br><span class="line"># 網頁檔案</span><br><span class="line">com.microsoft.VSCode .html all</span><br><span class="line">com.microsoft.VSCode .css all</span><br></pre></td></tr></table></figure>
-
-<p>套用設定檔：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">duti ~/.duti</span><br></pre></td></tr></table></figure>
-
-<h2 id="查詢應用程式的-Bundle-ID"><a href="#查詢應用程式的-Bundle-ID" class="headerlink" title="查詢應用程式的 Bundle ID"></a>查詢應用程式的 Bundle ID</h2><p>可以使用以下指令查詢應用程式的 Bundle Identifier：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">osascript -e <span class="string">&#x27;id of app &quot;Visual Studio Code&quot;&#x27;</span></span><br><span class="line"><span class="comment"># 輸出：com.microsoft.VSCode</span></span><br></pre></td></tr></table></figure>
-
-<p>或使用 <code>mdls</code> 指令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mdls -name kMDItemCFBundleIdentifier /Applications/Safari.app</span><br><span class="line"><span class="comment"># 輸出：kMDItemCFBundleIdentifier = &quot;com.apple.Safari&quot;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="常見的-Bundle-ID"><a href="#常見的-Bundle-ID" class="headerlink" title="常見的 Bundle ID"></a>常見的 Bundle ID</h2><table>
-<thead>
-<tr>
-<th>應用程式</th>
-<th>Bundle ID</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>VS Code</td>
-<td><code>com.microsoft.VSCode</code></td>
-</tr>
-<tr>
-<td>Sublime Text</td>
-<td><code>com.sublimetext.4</code></td>
-</tr>
-<tr>
-<td>Safari</td>
-<td><code>com.apple.Safari</code></td>
-</tr>
-<tr>
-<td>Chrome</td>
-<td><code>com.google.Chrome</code></td>
-</tr>
-<tr>
-<td>Firefox</td>
-<td><code>org.mozilla.firefox</code></td>
-</tr>
-<tr>
-<td>Preview</td>
-<td><code>com.apple.Preview</code></td>
-</tr>
-<tr>
-<td>Finder</td>
-<td><code>com.apple.finder</code></td>
-</tr>
-</tbody></table>
-<h2 id="搭配-dotfiles-管理"><a href="#搭配-dotfiles-管理" class="headerlink" title="搭配 dotfiles 管理"></a>搭配 dotfiles 管理</h2><p>將 duti 設定加入你的 dotfiles 安裝腳本中，可以在新機器上快速還原預設應用程式設定：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># install.sh</span></span><br><span class="line">brew install duti</span><br><span class="line"></span><br><span class="line"><span class="comment"># 套用預設應用程式設定</span></span><br><span class="line">duti ~/.duti</span><br></pre></td></tr></table></figure>
-
-<h2 id="總結"><a href="#總結" class="headerlink" title="總結"></a>總結</h2><p>duti 是一個簡單但實用的工具，特別適合：</p>
-<ul>
-<li>經常重灌系統或換新電腦的使用者</li>
-<li>想要自動化 macOS 設定的開發者</li>
-<li>管理多台 Mac 的系統管理員</li>
-</ul>
-<p>透過 duti，你可以將預設應用程式設定納入版本控制，輕鬆在不同機器間同步設定。</p>
-<h2 id="參考資源"><a href="#參考資源" class="headerlink" title="參考資源"></a>參考資源</h2><ul>
-<li><a target="_blank" rel="noopener" href="https://github.com/moretension/duti">duti GitHub Repository</a></li>
-<li><a target="_blank" rel="noopener" href="https://formulae.brew.sh/formula/duti">Homebrew - duti</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://swcleo.github.io/2023/03/03/git-credential-keychain/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Leo Chen">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="技術日誌 ✏ LEO">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | 技術日誌 ✏ LEO">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/03/03/git-credential-keychain/" class="post-title-link" itemprop="url">Git osxkeychain 帳密設定</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">發表於</span>
-      
-
-      <time title="創建時間：2023-03-03 14:45:41 / 修改時間：17:14:37" itemprop="dateCreated datePublished" datetime="2023-03-03T14:45:41+08:00">2023-03-03</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2023/03/03/git-credential-keychain/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2023/03/03/git-credential-keychain/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="Git-http-s-帳密設定"><a href="#Git-http-s-帳密設定" class="headerlink" title="Git http(s)帳密設定"></a>Git http(s)帳密設定</h2><p>通常在Git私倉的建置中，我們通常是透過http協定來存取Git私倉上的資源，在macOS上為了方便，透過我們會利用<code>Keychain</code>來安全管理使用者的帳號及密碼，因此大略都會透過下列指令設定 git credential osxkeychain 用戶憑證的管理方式。</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global credential.helper osxkeychain</span><br></pre></td></tr></table></figure>
-
-<h2 id="帳密更新方式"><a href="#帳密更新方式" class="headerlink" title="帳密更新方式"></a>帳密更新方式</h2><p>隨著時間一久，突然要上傳異動至<code>repo</code>專案時發現為何突然間提示權限不足，經過檢查線上權限都有開啟，那可能是因為帳密跑掉或錯誤而影響。</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git credential-osxkeychain get</span><br><span class="line">host=github.com</span><br><span class="line">protocol=https</span><br><span class="line">&gt; [Press Return]</span><br></pre></td></tr></table></figure>
-
-<p>可以透過上列的指令可以查看目前對照的帳號及密碼是否正確</p>
-<p>如果不確定，也可以透過下列指令先刪除原有設定，後續在進行git指令操作時就會需要重新輸入帳密</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git credential-osxkeychain erase</span><br><span class="line">host=github.com</span><br><span class="line">protocol=https</span><br><span class="line">&gt; [Press Return]</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://swcleo.github.io/2022/08/31/cros/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Leo Chen">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="技術日誌 ✏ LEO">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | 技術日誌 ✏ LEO">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/08/31/cros/" class="post-title-link" itemprop="url">跨來源資源共用(CORS)</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">發表於</span>
-
-      <time title="創建時間：2022-08-31 08:49:40" itemprop="dateCreated datePublished" datetime="2022-08-31T08:49:40+08:00">2022-08-31</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新於</span>
-      <time title="修改時間：2023-03-03 17:14:37" itemprop="dateModified" datetime="2023-03-03T17:14:37+08:00">2023-03-03</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2022/08/31/cros/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2022/08/31/cros/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="故事背景"><a href="#故事背景" class="headerlink" title="故事背景"></a>故事背景</h2><p>今日上班的時候，隔壁的小王跑來跟我說，目前線上遇到CORS的問題，深入了解後才曉得在後端的工程人員對於CORS的認識不深，因此在進行新環境部署的時候缺少環境的設定檔，面對總是有類似的狀況一再發生，是否有什麼方式可以改善。</p>
-<h2 id="同源策略"><a href="#同源策略" class="headerlink" title="同源策略"></a>同源策略</h2><p>要說起CORS的由來，主要還是在於安全性考量，在瀏覽器上大部份是採用<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/Security/Same-origin_policy">同源政策</a>(Same-origin policy)限制了不同網域資源間的活動。因此當我們API站的網址、埠號、協定不一致的時候，通常我們會在開發者工看到下面的錯誤訊息：</p>
-<img src="/2022/08/31/cros/cros.png" class="label">
-
-<h2 id="CORS"><a href="#CORS" class="headerlink" title="CORS"></a>CORS</h2><p>隨著目前網站提供的功能與內容的豐富度越來越高，經常會有需要存取第三方資源的狀況，因此大部份都會透過一些跨域存取的方法達到請求資源的目的，<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-TW/docs/Web/HTTP/CORS">CORS</a>就是其中一種可以達成存取資源方法。伺服器會透過<code>preflight request</code>機制使用<code>OPTIONS</code>方法發出一個請求，確認伺服器是否支援跨域請求以及相關內容，當伺服務允許之後，才會實際發送資源請求的動作，並告知客戶端是否有需要相關的認證資訊(Cookie、Header)之類的。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/08/31/cros/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://swcleo.github.io/2022/07/05/%20%E5%A6%82%E4%BD%95%E5%9C%A8VSCode%E4%B8%8A%E9%80%B2%E8%A1%8CTypeScript%20Debugging/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="Leo Chen">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="技術日誌 ✏ LEO">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content=" | 技術日誌 ✏ LEO">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/07/05/%20%E5%A6%82%E4%BD%95%E5%9C%A8VSCode%E4%B8%8A%E9%80%B2%E8%A1%8CTypeScript%20Debugging/" class="post-title-link" itemprop="url">如何在VSCode上進行TypeScript Debugging</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">發表於</span>
-
-      <time title="創建時間：2022-07-05 16:51:06" itemprop="dateCreated datePublished" datetime="2022-07-05T16:51:06+08:00">2022-07-05</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新於</span>
-      <time title="修改時間：2023-03-03 17:14:37" itemprop="dateModified" datetime="2023-03-03T17:14:37+08:00">2023-03-03</time>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2022/07/05/%20%E5%A6%82%E4%BD%95%E5%9C%A8VSCode%E4%B8%8A%E9%80%B2%E8%A1%8CTypeScript%20Debugging/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2022/07/05/ 如何在VSCode上進行TypeScript Debugging/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>日常工作上經常性使用<code>VSCode</code>這款原始碼編輯器做為開發工具，但大部份都只用來寫寫代碼、透過擴充套件<code>highlight</code>代碼，以及進行相關編輯、搜尋、取代等文書工作，甚少直接使用編輯器來運行程式，這次來記錄一下如何使用內建的Debug功能進行Typescript的Debugging。</p>
-<p>參考內容：<br><a target="_blank" rel="noopener" href="https://code.visualstudio.com/docs/editor/debugging">https://code.visualstudio.com/docs/editor/debugging</a></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/07/05/%20%E5%A6%82%E4%BD%95%E5%9C%A8VSCode%E4%B8%8A%E9%80%B2%E8%A1%8CTypeScript%20Debugging/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2026/02/23/duti-macOS-%E9%A0%90%E8%A8%AD%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/" rel="prev" title="duti - macOS 預設應用程式管理工具">
+                  <i class="fa fa-angle-left"></i> duti - macOS 預設應用程式管理工具
+                </a>
             </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
+            <div class="post-nav-item">
+            </div>
+          </div>
     </footer>
   </article>
 </div>
@@ -925,6 +480,12 @@
 
 
 
+
+    
+  <div class="comments" id="disqus_thread">
+    <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+  </div>
+  
 </div>
   </main>
 
